@@ -83,7 +83,7 @@ gcc -static -o target *.c
 
 > You are free to use the compiler you want, as soon it produces binaries executable by the Linux kernel. When making this tutorial, we used GCC and Clang compiler successfully.
 
-Commpiling OpenMP application is a bit more difficult for two reasons:
+Compiling OpenMP application is a bit more difficult for two reasons:
 * If we want to build a static executable, we need to link our OpenMP runtime statically with our executable, which can be tricky sometimes.
 * If we decide to execute a dynamically linked OpenMP application, we may experiences errors at loading time, when the OpenMP runtime is fetch by the loader (bad OpenMP runtime by default, not found, etc.)
 This is why we advice to compile OpenMP with HermiTux' wrapper compiler, to avoid most of the troubles mentionned above:
@@ -107,6 +107,12 @@ Nqueens is a benchmarks coming from the [Bots benchmarks suite](https://github.c
 
 * nqueens is the default nqueens benchmark, coming from the Bots benchmarks.
 * nqueens-hermitcore is the nqueens benchmark, ported to be compilable by HermitCore's compiler.
+
+Before compiling nqueens-hermitcore for HermitCore, you need to create a symbolic link in HermitCore's toolchain. The `memory.h` header is indeed located in a place where it can't be found during the nqueens compilation. The following command can resolve this issue, assuming that HermitCore's files are located in `/opt/hermit` folder on your machine:
+
+```
+ln -s /opt/hermit/x86_64-hermit/include/hermit/memory.h /opt/hermit/lib/gcc/x86_64-hermit/6.3.0/include/memory.h
+```
 
 ## Executing applications
 
